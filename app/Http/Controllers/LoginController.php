@@ -57,7 +57,7 @@ class LoginController extends Controller
     public function logout(){
         Session()->flush();
         Auth()->logout();
-        return Redirect()->route('auth.login');
+        return Redirect()->route('login.index');
     }
 
 }
