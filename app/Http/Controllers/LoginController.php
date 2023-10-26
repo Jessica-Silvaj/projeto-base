@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
 
 use App\Models\Usuario;
 use App\Models\UsuarioSetor;
-use Illuminate\Validation\ValidationException;
+use App\Models\Utils;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function index(){
+
         return view('auth.login');
     }
 
@@ -32,32 +32,34 @@ class LoginController extends Controller
 
         $user = Usuario::getLogin($userdata);
 
-        if(empty($user)){
-            $msg = "Matricula ou senha Inválidos!";
-            return redirect()->route('login.index')->with('error', $msg);
+
+        if(!empty($user)){
+
+            Session::put('usuarioId', $user->id);
+            Session::put('nome', $user->nome);
+            Session::put('cod_matricula', $user->cod_matricula);
+            Session::put('setorPrincipal', $user->setor_id);
+            return redirect()->route('painel.index');
+
         } else {
-
-            $mainSector = UsuarioSetor::getMainSector($user->id);
-            $secondarySector = UsuarioSetor::getSecondarySector($user->id);
-
-            session()->flush();
-            session([
-                'usuarioId' => $user->id,
-                'nome' => $user->nome,
-                'cod_matricula' =>$user->cod_matricula,
-                'setorPrincipal' => $mainSector ?  $mainSector : null,
-                'setorSecundario' => $secondarySector ? $secondarySector : null,
-            ]);
-
-            return view('welcome');
+            //TODO
+            return redirect()->back();
         }
-
     }
 
-    public function logout(){
-        Session()->flush();
-        Auth()->logout();
-        return Redirect()->route('login.index');
+    public function logout(Request $request){
+
+        Auth::guard('web')->logout();
+        Session::put('usuarioId', '');
+        Session::put('nome', '');
+        Session::put('cod_matricula', '');
+        Session::put('setorPrincipal', '');
+        Session::put('setorSecundario', '');
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+
     }
 
 }

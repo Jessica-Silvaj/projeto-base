@@ -33,34 +33,9 @@
                     <label class="form-label">SENHA</label>
                     <input class="form-control" name="senha" type="password" placeholder="Senha" required>
                 </div>
-                <div class="mb-3">
-                    <div class="utility">
-                        {{-- <div class="form-check">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox"><span class="label-text">Permaneça conectado</span>
-                </label>
-              </div> --}}
-                        <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Esqueceu sua senha?</a></p>
-                    </div>
-                </div>
                 <div class="mb-3 btn-container d-grid">
                     <button class="btn btn-primary btn-block"><i
                             class="bi bi-box-arrow-in-right me-2 fs-5"></i>ENTRAR</button>
-                </div>
-            </form>
-            <form class="forget-form" action="index.html">
-                <h3 class="login-head"><i class="bi bi-person-lock me-2"></i>Esqueceu sua senha?</h3>
-                <div class="mb-3">
-                    <label class="form-label">EMAIL</label>
-                    <input class="form-control" type="text" placeholder="Email">
-                </div>
-                <div class="mb-3 btn-container d-grid">
-                    <button class="btn btn-primary btn-block"><i class="bi bi-unlock me-2 fs-5"></i>REDEFINIR
-                        SENHA</button>
-                </div>
-                <div class="mb-3 mt-3">
-                    <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i
-                                class="bi bi-chevron-left me-1"></i>Volte ao login</a></p>
                 </div>
             </form>
         </div>
@@ -69,13 +44,6 @@
     <script src="js/jquery-3.7.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
-    <script type="text/javascript">
-        // Login Page Flipbox control
-        $('.login-content [data-toggle="flip"]').click(function() {
-            $('.login-box').toggleClass('flipped');
-            return false;
-        });
-    </script>
 </body>
 
 </html>

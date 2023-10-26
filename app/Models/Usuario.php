@@ -15,16 +15,16 @@ class Usuario extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id', 'cod_matricula', 'nome', 'telefone', 'senha', 'ativo'
+        'id', 'cod_matricula', 'nome', 'telefone', 'senha', 'ativo', 'setor_id'
     ];
 
-    public function usuario_setor(){
-        return $this->belongsToMany(usuario_setor::class);
+    public function setor(){
+        return $this->belongsToMany(setor::class, 'setor_id', 'id');
     }
 
     public static function getLogin($data){
         $cod_matricula = $data['cod_matricula'];
-        $senha = md5($data['senha']);
+        $senha = crypt($data['senha'], 'a45zzzz2s');
 
         return self::where('cod_matricula',  $cod_matricula)
         ->where('senha', $senha)
