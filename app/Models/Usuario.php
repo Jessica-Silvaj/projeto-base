@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Usuario extends Model
 {
     use HasFactory;
 
-    protected static $sequence = 'seq_usuario';
+    public static $sequence = 'seq_usuario';
     protected $table = "usuario";
     protected $primaryKey = 'id';
     public $timestamps = false;
@@ -19,7 +20,7 @@ class Usuario extends Model
     ];
 
     public function setor(){
-        return $this->belongsToMany(setor::class, 'setor_id', 'id');
+        return $this->belongsTo(setor::class, 'setor_id', 'id');
     }
 
     public static function getLogin($data){
@@ -30,5 +31,22 @@ class Usuario extends Model
         ->where('senha', $senha)
         ->where('ativo', 1)
         ->first();
+    }
+
+    public static function getByFilter($dados){
+        $query = self::with('setor')->orderBy('nome');
+        // if(!empty($dados->matricula)){
+        //     $query = $query->where('cod_matricula', $dados->matricula);
+        // }
+        // if(!empty($dados->nome)){
+        //     $query = $query->where('nome', 'LIKE', '%'.Str::upper($dados->nome).'%');
+        // }
+        // if(!empty($dados->ativo)){
+        //     $query = $query->where('ativo', $dados->ativo);
+        // }
+        // if(!empty($dados->setor_id)){
+        //     $query = $query->where('setor_id', $dados->setor_id);
+        // }
+        return $query->get();
     }
 }

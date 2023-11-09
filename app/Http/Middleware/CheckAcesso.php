@@ -21,7 +21,12 @@ class CheckAcesso
 
     public const listRoutes = array (
         // Painel Principal
-        'painel.index' => array(self::PERFIL_ADMIM, self::PERFIL_GERENTE),
+        'painel.index' => array(self::PERFIL_ADMIM),
+
+        // Usuarios
+        'cadastro.usuario.index' => array(self::PERFIL_ADMIM),
+        'cadastro.usuario.edit' => array(self::PERFIL_ADMIM),
+        'cadastro.usuario.store' => array(self::PERFIL_ADMIM),
     );
 
     public function temAcesso($routeName){
@@ -40,7 +45,6 @@ class CheckAcesso
         if(!in_array(session('setorPrincipal'), $listPerfis) && !in_array(session('setorSecundario'), $listPerfis)){
             return false;
         }
-
         return true;
     }
 

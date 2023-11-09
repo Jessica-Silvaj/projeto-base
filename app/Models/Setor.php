@@ -18,8 +18,7 @@ class Setor extends Model
         'id', 'nome',
     ];
 
-    public function usuario_setor(){
-        return $this->belongsToMany(usuario_setor::class);
-    }
-
+     public static function getAll(){
+        return self::orderBy('nome')->get();
+     }
 }

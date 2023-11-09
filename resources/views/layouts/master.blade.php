@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('layouts.header')
+    @include('layouts.header')
   <body class="app sidebar-mini">
 
     <div class='pre-loader'>
@@ -16,6 +16,7 @@
     <!-- End Sidebar-->
 
     {{-- Conteúdo --}}
+    {{-- @include('layouts.message') --}}
     @yield('content')
     {{-- End Conteúdo --}}
 
